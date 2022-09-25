@@ -1,0 +1,39 @@
+Potrzebuje referencji do preview itemu, zeby znac jego aktualna pozycje w czasie
+draga, zeby na podstawie lewej krawedzi ustalac ktory placeholder ma byc
+
+<div
+  cdkDropList
+  class="example-list"
+  (cdkDropListDropped)="cdkDropListDropped($event)"
+  #navList="cdkDropList"
+>
+  <div
+    class="example-box level-{{movie.level}}"
+    #navItem="cdkDrag"
+    *ngFor="let movie of movies;index as i"
+    cdkDrag
+    (cdkDragMoved)="cdkDragMoved($event)"
+    (cdkDragStarted)="cdkDragStarted($event)"
+    (cdkDragReleased)="cdkDragReleased($event)"
+    [cdkDragData]="1"
+  >
+    <div
+      class="example-custom-placeholder placeholder-{{placeholderDepth}}"
+      *cdkDragPlaceholder
+    >
+      <div class=""></div>
+    </div>
+
+    {{movie.id}} {{movie.title}}
+
+    <div class="children-transport"></div>
+    <!-- <ng-template cdkDragPreview matchSize>
+      <div class="example-box level-{{movie.level}}">{{movie.title}}</div>
+    </ng-template> -->
+  </div>
+</div>
+<button (click)="tester()">Test</button>
+
+<!-- Copyright 2022 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at https://angular.io/license -->
