@@ -3,37 +3,60 @@ draga, zeby na podstawie lewej krawedzi ustalac ktory placeholder ma byc
 
 <div
   cdkDropList
-  class="example-list"
+  class="dd-list"
   (cdkDropListDropped)="cdkDropListDropped($event)"
   #navList="cdkDropList"
 >
   <div
-    class="example-box level-{{movie.level}}"
+    class="dd-item level-{{navBarItem.level}}"
     #navItem="cdkDrag"
-    *ngFor="let movie of movies;index as i"
+    *ngFor="let navBarItem of navBarItems;index as i"
     cdkDrag
     (cdkDragMoved)="cdkDragMoved($event)"
     (cdkDragStarted)="cdkDragStarted($event)"
     (cdkDragReleased)="cdkDragReleased($event)"
-    [cdkDragData]="1"
+    [cdkDragData]="navBarItem.allowedDropZones"
   >
-    <div
-      class="example-custom-placeholder placeholder-{{placeholderDepth}}"
+    <!-- <div
+      class="example-custom-placeholder placeholder-{{placeholderLevel}}"
       *cdkDragPlaceholder
     >
       <div class=""></div>
-    </div>
+    </div> -->
 
-    {{movie.id}} {{movie.title}}
-
-    <div class="children-transport"></div>
-    <!-- <ng-template cdkDragPreview matchSize>
-      <div class="example-box level-{{movie.level}}">{{movie.title}}</div>
-    </ng-template> -->
+    <ng-container>
+      <div>{{navBarItem.id}} {{navBarItem.title}}</div>
+      <div class="btn-toolbar">
+        <button (click)="getAllSubItems(i)">getAllSubItems</button>
+        <button (click)="getDirectSubItems(i)">getDirectSubItems</button>
+        <button (click)="addNavBarItem(i, true)">addNavBarItem Before</button>
+        <button (click)="addNavBarItem(i)">addNavBarItem After</button>
+      </div>
+    </ng-container>
+    <ng-template cdkDragPlaceholder>
+      <div class="dd-placeholder placeholder-{{placeholderLevel}}">
+        <div>cdkDragPlaceholder</div>
+      </div>
+    </ng-template>
+    <ng-template cdkDragPreview matchSize>
+      <div class="dd-item" style="background: red !important">
+        cdkDragPreview cdkDragPreview cdkDragPreview cdkDragPreview
+        cdkDragPreview cdkDragPreview cdkDragPreview cdkDragPreview
+        cdkDragPreview cdkDragPreview cdkDragPreview cdkDragPreview
+        cdkDragPreview cdkDragPreview cdkDragPreview cdkDragPreview
+        cdkDragPreview cdkDragPreview cdkDragPreview cdkDragPreview
+        cdkDragPreview cdkDragPreview cdkDragPreview cdkDragPreview
+        cdkDragPreview cdkDragPreview cdkDragPreview cdkDragPreview
+        cdkDragPreview cdkDragPreview cdkDragPreview cdkDragPreview
+        cdkDragPreview cdkDragPreview cdkDragPreview cdkDragPreview
+        cdkDragPreview cdkDragPreview cdkDragPreview cdkDragPreview
+        cdkDragPreview cdkDragPreview cdkDragPreview cdkDragPreview
+        cdkDragPreview cdkDragPreview cdkDragPreview cdkDragPreview
+      </div>
+    </ng-template>
   </div>
 </div>
-<button (click)="tester()">Test</button>
-
+<button (click)="templateRefTest()">TemplateRefTest</button>
 <!-- Copyright 2022 Google LLC. All Rights Reserved.
     Use of this source code is governed by an MIT-style license that
     can be found in the LICENSE file at https://angular.io/license -->
