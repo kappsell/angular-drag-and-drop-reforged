@@ -269,12 +269,14 @@ export class CdkDragDropSortingExample {
   public collapseItems = (index: number) => {
     const parent = this.navBarItems[index];
     const children = this.__getAllSubItems(index);
-    this.navBarItems.splice(index, children.length);
+    this.navBarItems.splice(index + 1, children.length);
     this.collapsedNavBarItems[parent.id] = children;
   };
 
   // chowa wszystkie dzieciaki rekurencyjnie (dzieciaki dzieciakow tez)
-  public collapseAllItems = () => {};
+  public collapseAllItems = (index: number) => {
+    const ids = this.navBarItems.filter((item: any) => item.level === 1);
+  };
 
   // rozwia wszystkie dzieciaki
   public expandItems = (index: number) => {
