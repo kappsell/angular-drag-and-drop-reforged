@@ -15,7 +15,6 @@ import {
   templateUrl: 'cdk-drag-drop-sorting-example.html',
   styleUrls: ['cdk-drag-drop-sorting-example.css'],
 })
-
 export class CdkDragDropSortingExample {
   @ViewChild('navList', { static: true }) navList: CdkDropList;
 
@@ -107,48 +106,33 @@ export class CdkDragDropSortingExample {
    */
   collapsednavBarItems = {};
 
-  constructor(){
+  constructor() {
     // Zamien dane na tablice jednowymiarowa
     this.__transformToNavBarItems();
   }
 
   // zamienia dane na liste drag & drop
-  private __transformToNavBarItems = () => {
-
-  }
+  private __transformToNavBarItems = () => {};
 
   // zamienia liste drag & drop na dane
-  private __transformToNavBarData = () => {
-    
-  }
+  private __transformToNavBarData = () => {};
 
   // zwraca liste bezposrednich sub itemow danego itemu
-  private __getDirectSubItems = () => {
-
-  }
+  private __getDirectSubItems = () => {};
 
   // zwraca liste wszystkich sub itemow danego itemu
-  private __getAllSubItems = () => {
-
-  }
+  private __getAllSubItems = () => {};
 
   // chowa wszystkie dzieciaki
-  public collapseItems = () => {
-
-  }
+  public collapseItems = () => {};
 
   // chowa wszystkie dzieciaki rekurencyjnie (dzieciaki dzieciakow tez)
-  public collapseAllItems = () => {
-
-  }
+  public collapseAllItems = () => {};
 
   // rozwia wszystkie dzieciaki
-  public expandItems = () => {
-
-  }
+  public expandItems = () => {};
 
   // rozwija wszystkie dzieciaki rekurencyjnie
-  public expandAllItems = () => {
-
-  }
+  public expandAllItems = () => {};
+  // ??
 }
