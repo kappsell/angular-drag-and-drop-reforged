@@ -106,12 +106,12 @@ export class CdkDragDropSortingExample {
    * Tablica asocjacyjna itemow ktore zostaly schowane
    * - index to id itemu, ktorego sub itemy sa schowane
    */
-  collapsednavBarItems = {};
+  collapsedNavBarItems: any = {};
 
   /**
    * Tablica asocjacyjna dla przenoszonych itemow
    */
-  draggedNavBarItems: any = [];
+  draggedNavBarItems: any = {};
 
   constructor() {
     // Zamien dane na tablice jednowymiarowa
@@ -269,13 +269,23 @@ export class CdkDragDropSortingExample {
   public collapseItems = (index: number) => {
     const parent = this.navBarItems[index];
     const children = this.__getAllSubItems(index);
+    this.navBarItems.splice(index, children.length);
+    this.collapsedNavBarItems[parent.id] = children;
   };
 
   // chowa wszystkie dzieciaki rekurencyjnie (dzieciaki dzieciakow tez)
   public collapseAllItems = () => {};
 
   // rozwia wszystkie dzieciaki
-  public expandItems = () => {};
+  public expandItems = (index: number) => {
+    const parent = this.navBarItems[index];
+    this.navBarItems.splice(
+      index + 1,
+      0,
+      ...this.collapsedNavBarItems[parent.id]
+    );
+    delete this.collapsedNavBarItems[parent.id];
+  };
 
   // rozwija wszystkie dzieciaki rekurencyjnie
   public expandAllItems = () => {};
