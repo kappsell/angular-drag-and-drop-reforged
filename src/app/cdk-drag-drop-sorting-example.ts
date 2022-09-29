@@ -156,6 +156,7 @@ export class CdkDragDropSortingExample {
   };
 
   // zamienia liste drag & drop na dane
+  // todo uwzglednij collapsed
   private __transformToNavBarData = () => {
     this.navBarData = [];
     /**
@@ -258,19 +259,26 @@ export class CdkDragDropSortingExample {
     );
   };
 
-  // przenies itemy programowo w inne miejsce
-  public moveItemTo = () => {
+  // przenies item i jego dzieci programowo w inne miejsce
+  public moveItemTo = (indexFrom: number, indexTo: number) => {
     // jezeli sa dzieci, to zabierz je ze soba!
   };
   // przenies dziec
-  public moveSubItemsTo = () => {};
+  public moveSubItemsTo = (
+    index: number,
+    indexFrom: number,
+    indexTo: number
+  ) => {};
 
   // chowa wszystkie dzieciaki
-  public collapseItems = (index: number) => {
+  public collapseItems = (
+    index: number,
+    container: any = this.collapsedNavBarItems
+  ) => {
     const parent = this.navBarItems[index];
     const children = this.__getAllSubItems(index);
     this.navBarItems.splice(index + 1, children.length);
-    this.collapsedNavBarItems[parent.id] = children;
+    container[parent.id] = children;
   };
 
   // chowa wszystkie dzieciaki rekurencyjnie (dzieciaki dzieciakow tez)
@@ -279,14 +287,15 @@ export class CdkDragDropSortingExample {
   };
 
   // rozwia wszystkie dzieciaki
-  public expandItems = (index: number) => {
+  public expandItems = (
+    index: number,
+    container: any = this.collapsedNavBarItems
+  ) => {
     const parent = this.navBarItems[index];
-    this.navBarItems.splice(
-      index + 1,
-      0,
-      ...this.collapsedNavBarItems[parent.id]
-    );
-    delete this.collapsedNavBarItems[parent.id];
+    if (container[parent.id]) {
+      this.navBarItems.splice(index + 1, 0, ...container[parent.id]);
+      delete container[parent.id];
+    }
   };
 
   // rozwija wszystkie dzieciaki rekurencyjnie
@@ -295,10 +304,16 @@ export class CdkDragDropSortingExample {
   //cdkDropListDropped
   public cdkDropListDropped = (event: CdkDragDrop<any>) => {
     console.log('CdkDropList', event);
+    moveItemInArray(this.navBarItems, event.previousIndex, event.currentIndex);
+    this.expandItems(event.currentIndex, this.draggedNavBarItems);
+    console.log(this.draggedNavBarItems);
   };
   //cdkDragStarted
   public cdkDragStarted = (event: CdkDragStart) => {
     console.log('CdkDragStart', event);
+    const index = event.source.data;
+    this.collapseItems(index, this.draggedNavBarItems);
+    console.log(this.draggedNavBarItems);
   };
   //cdkDragReleased
   public cdkDragReleased = (event: CdkDragRelease) => {
@@ -306,7 +321,7 @@ export class CdkDragDropSortingExample {
   };
   //cdkDragMoved
   public cdkDragMoved = (event: CdkDragMove) => {
-    console.log('CdkDragMove', event);
+    //console.log('CdkDragMove', event);
   };
 
   /**
