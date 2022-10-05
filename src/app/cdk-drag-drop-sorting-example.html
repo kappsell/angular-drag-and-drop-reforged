@@ -1,6 +1,9 @@
 Potrzebuje referencji do preview itemu, zeby znac jego aktualna pozycje w czasie
 draga, zeby na podstawie lewej krawedzi ustalac ktory placeholder ma byc
-
+<ul>
+  <li>Dodać sortowanie subitemów a-z z-a</li>
+  <li>Lista jako filtered bez collapse</li>
+</ul>
 <div
   cdkDropList
   class="dd-list"
@@ -8,9 +11,9 @@ draga, zeby na podstawie lewej krawedzi ustalac ktory placeholder ma byc
   #navList="cdkDropList"
 >
   <div
-    class="dd-item level-{{navBarItem.level}}"
+    class="dd-item level-{{navBarItem.level}} {{navBarItem.status}}"
     #navItem="cdkDrag"
-    *ngFor="let navBarItem of navBarItems;index as i"
+    *ngFor="let navBarItem of navBarItems | navBarItemFilter: 'visible';index as i"
     cdkDrag
     (cdkDragMoved)="cdkDragMoved($event)"
     (cdkDragStarted)="cdkDragStarted($event)"

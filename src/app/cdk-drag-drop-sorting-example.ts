@@ -127,6 +127,7 @@ export class CdkDragDropSortingExample {
         level: 1,
         subPagesAmount: value.subPages?.length || 0,
         allowedDropZones: this.__getAllowedDropZones(value),
+        status: 'visible',
       });
       const childrenMenuItems = value.subPages;
       if (childrenMenuItems && childrenMenuItems.length > 0) {
@@ -137,6 +138,7 @@ export class CdkDragDropSortingExample {
             level: 2,
             subPagesAmount: cValue.subPages?.length || 0,
             allowedDropZones: this.__getAllowedDropZones(cValue),
+            status: 'visible',
           });
           const grandchildrenMenuItems = cValue.subPages;
           if (grandchildrenMenuItems && grandchildrenMenuItems.length > 0) {
@@ -147,6 +149,7 @@ export class CdkDragDropSortingExample {
                 level: 3,
                 subPagesAmount: 0,
                 allowedDropZones: this.__getAllowedDropZones(gcValue),
+                status: 'visible',
               });
             });
           }
@@ -275,10 +278,15 @@ export class CdkDragDropSortingExample {
     index: number,
     container: any = this.collapsedNavBarItems
   ) => {
+    console.log('hej');
     const parent = this.navBarItems[index];
     const children = this.__getAllSubItems(index);
-    this.navBarItems.splice(index + 1, children.length);
-    container[parent.id] = children;
+    children.forEach((element: any) => {
+      element.status = 'collapsed';
+    });
+    console.log(children);
+    // this.navBarItems.splice(index + 1, children.length);
+    // container[parent.id] = children;
   };
 
   // chowa wszystkie dzieciaki rekurencyjnie (dzieciaki dzieciakow tez)
@@ -291,11 +299,16 @@ export class CdkDragDropSortingExample {
     index: number,
     container: any = this.collapsedNavBarItems
   ) => {
+    // const parent = this.navBarItems[index];
+    // if (container[parent.id]) {
+    //   this.navBarItems.splice(index + 1, 0, ...container[parent.id]);
+    //   delete container[parent.id];
+    // }
     const parent = this.navBarItems[index];
-    if (container[parent.id]) {
-      this.navBarItems.splice(index + 1, 0, ...container[parent.id]);
-      delete container[parent.id];
-    }
+    const children = this.__getAllSubItems(index);
+    children.forEach((element: any) => {
+      element.status = 'visible';
+    });
   };
 
   // rozwija wszystkie dzieciaki rekurencyjnie

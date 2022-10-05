@@ -111,3 +111,12 @@
 .dd-item.cdk-drag-preview {
   height: auto !important;
 }
+.visible {
+  background-color: green;
+}
+.hidden {
+  background-color: red;
+}
+.dragged {
+  background-color: orange;
+}
