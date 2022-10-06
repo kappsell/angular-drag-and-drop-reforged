@@ -274,10 +274,7 @@ export class CdkDragDropSortingExample {
   ) => {};
 
   // chowa wszystkie dzieciaki
-  public collapseItems = (
-    index: number,
-    status: string = 'collapsed'
-  ) => {
+  public collapseItems = (index: number, status: string = 'collapsed') => {
     const parent = this.navBarItems[index];
     const children = this.__getAllSubItems(index);
     children.forEach((element: any) => {
@@ -293,10 +290,7 @@ export class CdkDragDropSortingExample {
   };
 
   // rozwia wszystkie dzieciaki
-  public expandItems = (
-    index: number,
-    status: string = 'visible'
-  ) => {
+  public expandItems = (index: number, status: string = 'visible') => {
     // const parent = this.navBarItems[index];
     // if (container[parent.id]) {
     //   this.navBarItems.splice(index + 1, 0, ...container[parent.id]);
